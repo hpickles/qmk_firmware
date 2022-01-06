@@ -36,7 +36,11 @@ enum layers {
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
 #define CTL_MINS MT(MOD_RCTL, KC_MINUS)
+#define CTL_TILD MT(MOD_LCTL, KC_TILD)
+#define CTL_PLUS MT(MOD_RCTL, KC_PLUS)
 #define ALT_ENT  MT(MOD_LALT, KC_ENT)
+#define SFT_PIPE MT(MOD_LSFT, KC_PIPE)
+#define SFT_QUES MT(MOD_RSFT, KC_QUES)
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
