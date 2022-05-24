@@ -59,10 +59,15 @@ combo_t key_combos[] = {
 #define ALT_ENT  MT(MOD_LALT, KC_ENT)
 
 // Homerow Mods
+#define LGUI_A LGUI_T(KC_A)
+#define LALT_R LALT_T(KC_R)
 #define LCTL_S LCTL_T(KC_S)
-#define RCTL_E RCTL_T(KC_E)
 #define LSHFT_T LSFT_T(KC_T)
+
 #define RSFT_N RSFT_T(KC_N)
+#define RCTL_E RCTL_T(KC_E)
+#define RALT_I RALT_T(KC_I)
+#define RGUI_O RGUI_T(KC_O)
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -86,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_COLEMAK_DH] = LAYOUT(
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   KC_Y ,KC_SCLN, KC_BSPC,
-     CTL_ESC , KC_A ,  KC_R   , LCTL_S , LSHFT_T,   KC_G ,                                        KC_M, RSFT_N , RCTL_E,   KC_I ,  KC_O , CTL_QUOT,
+     CTL_ESC ,LGUI_A, LALT_R  , LCTL_S , LSHFT_T,   KC_G ,                                        KC_M, RSFT_N , RCTL_E,  RALT_I,RGUI_O ,CTL_QUOT,
      KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
                                 ADJUST , KC_LGUI, ALT_ENT, KC_SPC ,i3_LBRC,    SYM_RBRC, NAV , KC_RALT,KC_RGUI, KC_APP
     ),
