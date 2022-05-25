@@ -15,6 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+  KC_TMUX = SAFE_RANGE,
+};
+
 enum layers {
     _COLEMAK_DH,
     _NAV,
@@ -22,25 +26,6 @@ enum layers {
     _i3,
     _FUNCTION,
     _ADJUST,
-};
-
-enum combos {
-  AB_ESC,
-  JK_TAB,
-  QW_SFT,
-  COMBO_LENGTH,
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
-
-combo_t key_combos[] = {
-  [AB_ESC] = COMBO(ab_combo, KC_ESC),
-  [JK_TAB] = COMBO(jk_combo, KC_TAB),
-  [QW_SFT] = COMBO(qw_combo, KC_LSFT),
 };
 
 // Aliases for readability
@@ -68,9 +53,62 @@ combo_t key_combos[] = {
 #define RALT_I RALT_T(KC_I)
 #define RGUI_O RGUI_T(KC_O)
 
+enum combos {
+  TM_TMUX,
+  AB_ESC,
+  JK_TAB,
+  QW_SFT,
+  COMBO_LENGTH,
+};
+
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
+const uint16_t PROGMEM tm_tmux[] = {LSHFT_T, KC_M, COMBO_END};
+const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
+
+combo_t key_combos[] = {
+  [TM_TMUX] = COMBO(tm_tmux, KC_TMUX),
+  [AB_ESC] = COMBO(ab_combo, KC_ESC),
+  [JK_TAB] = COMBO(jk_combo, KC_TAB),
+  [QW_SFT] = COMBO(qw_combo, KC_LSFT),
+};
+
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
 // produces the key `tap` when tapped (i.e. pressed and released).
+
+bool tmux_flag = false;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  switch (keycode) {
+    case KC_TMUX:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL("a"));
+        set_oneshot_layer(_SYM, ONESHOT_START);
+        tmux_flag = true;
+      } else {
+      }
+      return true;
+    default:
+      return true; // Process all other keycodes normally
+  }
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_TMUX:
+      if (!record->event.pressed) {
+      }
+      break;
+    default:
+      if(tmux_flag){
+        tmux_flag = false;
+        clear_oneshot_layer_state(ONESHOT_PRESSED);
+      }
+  }
+}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
