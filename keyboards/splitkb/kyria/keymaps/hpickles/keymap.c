@@ -25,6 +25,7 @@ enum layers {
     _SYM,
     _i3,
     _FUNCTION,
+    _MOUSE,
     _ADJUST,
 };
 
@@ -33,6 +34,7 @@ enum layers {
 
 #define NAV      MO(_NAV)
 #define FKEYS    MO(_FUNCTION)
+#define MOUSE    MO(_MOUSE)
 #define ADJUST   MO(_ADJUST)
 #define i3_LBRC  LT(_i3, KC_LBRC)
 #define SYM_RBRC LT(_SYM, KC_RBRC)
@@ -122,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   D  |   V  | [ {  |CapsLk|  |F-keys|  ] } |   K  |   H  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |Adjust| LGUI | LAlt/| Space| i3/[{|  |Sym/]}| Nav  | AltGr| RGUI | Menu |
+ *                        |Adjust| LGUI | LAlt/| Space| i3/[{|  |Sym/]}| Nav  | Mouse| RGUI | Menu |
  *                        |      |      | Enter|      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -130,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   KC_Y ,KC_SCLN, KC_BSPC,
      CTL_ESC ,LGUI_A, LALT_R  , LCTL_S , LSHFT_T,   KC_G ,                                        KC_M, RSFT_N , RCTL_E,  RALT_I,RGUI_O ,CTL_QUOT,
      KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                ADJUST , KC_LGUI, ALT_ENT, KC_SPC ,i3_LBRC,    SYM_RBRC, NAV , KC_RALT,KC_RGUI, KC_APP
+                                ADJUST , KC_LGUI, ALT_ENT, KC_SPC ,i3_LBRC,    SYM_RBRC,   NAV   ,MOUSE,KC_RGUI, KC_APP
     ),
 /*
  * Nav Layer: Media, navigation
@@ -217,6 +219,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
+ * Mouse Layer
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |   ↓   |  →  |      |      |      |        |
+ * |--------+------+------+------+------+------|                              |-------+-----+------+------+------+--------|
+ * |        | ACL0 | ACL1 | ACL2 |  M1  |  M2  |                              |       |     |      |      |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+-------+-----+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |   ↑   |  ←  |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_MOUSE] = LAYOUT(
+      _______, _______, _______, KC_MS_U, _______, _______,                                     _______, _______, _______, _______, _______, _______,
+      _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,                                     KC_BTN2, KC_BTN1, KC_ACL2, KC_ACL1, KC_ACL0, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+/*
  * Adjust Layer: Default layer settings, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -230,6 +253,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
+
     [_ADJUST] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                    DT_PRNT,DT_UP  , DT_DOWN, _______,  _______, _______,
       _______, _______, _______, COLEMAK, _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
