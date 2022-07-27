@@ -5,6 +5,7 @@ COMBO_ENABLE = yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 KEY_OVERRIDE_ENABLE = yes
+LEADER_ENABLE = yes
 
 # rev6_drop/rules.mk paste
 CONSOLE_ENABLE = false        # Console for debug

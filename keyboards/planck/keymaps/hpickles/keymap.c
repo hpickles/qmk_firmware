@@ -86,14 +86,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Adjust| Ctrl | Alt  |Enter |Lower |Space | SYM  | Nav  | Left | Down |  Up  |Right |
+ * |Adjust| Ctrl | Alt  |Lower |Leader|Space | SYM  | Nav  | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
     CTL_ESC, LGUI_A,  LALT_R,  LCTL_S,  LSHFT_T, KC_G,    KC_M,    RSFT_N,  RCTL_E,  RALT_I,  RGUI_O,  CTL_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-    ADJUST,  KC_LCTL, KC_LALT, KC_ENT,  LOWER,   KC_SPC,  SYM,     NAV,     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    ADJUST,  KC_LCTL, KC_LALT, LOWER,   KC_LEAD, KC_SPC,  SYM,     NAV,     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Qwerty
@@ -418,7 +418,70 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
 }
 
+LEADER_EXTERNS();
 void matrix_scan_user(void) {
+
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    // Common phrases
+    SEQ_TWO_KEYS(KC_D, KC_W) { // doing well
+      SEND_STRING("We are doing well.");
+    }
+
+    SEQ_TWO_KEYS(KC_H, KC_G) { // how's going
+      SEND_STRING("How are you doing?");
+    }
+
+    SEQ_TWO_KEYS(KC_H, KC_W) { // hope well
+      SEND_STRING("Hope you are doing well");
+    }
+
+    SEQ_TWO_KEYS(KC_S, KC_G) {
+      SEND_STRING("Sounds good");
+    }
+
+    SEQ_ONE_KEY(KC_T) {
+      SEND_STRING("Thanks");
+    }
+
+    SEQ_TWO_KEYS(KC_T, KC_S) {
+      SEND_STRING("Thanks sweetie");
+    }
+
+    // Email
+    SEQ_TWO_KEYS(KC_E, KC_M) { // email mort...
+      SEND_STRING("mortifiedchaos01@gmail.com");
+    }
+
+    SEQ_TWO_KEYS(KC_E, KC_K) { // email kyler...
+      SEND_STRING("kyler.johnson.01@gmail.com");
+    }
+
+    // Address
+    SEQ_ONE_KEY(KC_A) { // address
+      SEND_STRING("19525 73 Ave");
+    }
+
+    SEQ_TWO_KEYS(KC_A, KC_C) { // address city
+      SEND_STRING("Surrey");
+    }
+
+    SEQ_TWO_KEYS(KC_A, KC_P) { // address postal
+      SEND_STRING("V4N 6L7");
+    }
+
+    // Work
+    SEQ_TWO_KEYS(KC_W, KC_E) { // work email
+      SEND_STRING("kjohnson@schoolathome.ca");
+    }
+
+    SEQ_TWO_KEYS(KC_W, KC_U) { // work username
+      SEND_STRING("kjohnson@schoolathome.ca");
+    }
+  }
+
 #ifdef AUDIO_ENABLE
     if (muse_mode) {
         if (muse_counter == 0) {

@@ -35,3 +35,7 @@
 // Mouse settings
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
+
+// Leader keys
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
