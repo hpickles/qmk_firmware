@@ -282,6 +282,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
+const key_override_t delete_key_override = {
+  .trigger_mods           = MOD_BIT(KC_LGUI),
+  .layers                 = ~0,
+  .suppressed_mods        = MOD_BIT(KC_LGUI),
+  .options                = ko_option_no_unregister_on_other_key_down,
+  //.negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_LCTL)),
+  //.custom_action          = momentary_layer,
+  //.context                = (void *)LAYER_FN,
+  .trigger                = KC_SPC,
+  .replacement            = KC_DEL,
+  .enabled                = NULL};
+
+const key_override_t backspace_key_override = {
+  .trigger_mods           = MOD_BIT(KC_LALT),
+  .layers                 = ~0,
+  .suppressed_mods        = MOD_BIT(KC_LALT),
+  .options                = ko_option_no_unregister_on_other_key_down,
+  //.negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_LCTL)),
+  //.custom_action          = momentary_layer,
+  //.context                = (void *)LAYER_FN,
+  .trigger                = KC_SPC,
+  .replacement            = KC_BSPC,
+  .enabled                = NULL};
+
+const key_override_t tab_key_override = {
+  .trigger_mods           = MOD_BIT(KC_LCTL),
+  .layers                 = ~0,
+  .suppressed_mods        = MOD_BIT(KC_LCTL),
+  .options                = ko_option_no_unregister_on_other_key_down,
+  //.negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_LCTL)),
+  //.custom_action          = momentary_layer,
+  //.context                = (void *)LAYER_FN,
+  .trigger                = KC_SPC,
+  .replacement            = KC_TAB,
+  .enabled                = NULL};
+
+const key_override_t enter_key_override = {
+  .trigger_mods           = MOD_BIT(KC_LSFT),
+  .layers                 = ~0,
+  .suppressed_mods        = MOD_BIT(KC_LSFT),
+  .options                = ko_option_no_unregister_on_other_key_down,
+  //.negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_LGUI)),
+  //.custom_action          = momentary_layer,
+  //.context                = (void *)LAYER_FN,
+  .trigger                = KC_SPC,
+  .replacement            = KC_ENT,
+  .enabled                = NULL};
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &delete_key_override,
+    &backspace_key_override,
+    &tab_key_override,
+    &enter_key_override,
+    NULL // Null terminate the array of overrides!
+};
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _i3:
