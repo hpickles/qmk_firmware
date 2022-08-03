@@ -26,7 +26,7 @@ enum layers {
     _i3,
     _FUNCTION,
     _MOUSE,
-    _ADJUST,
+    // _ADJUST,
 };
 
 // Aliases for readability
@@ -35,7 +35,7 @@ enum layers {
 #define NAV      MO(_NAV)
 #define FKEYS    MO(_FUNCTION)
 #define MOUSE    MO(_MOUSE)
-#define ADJUST   MO(_ADJUST)
+//#define ADJUST   MO(_ADJUST)
 #define i3_LBRC  LT(_i3, KC_LBRC)
 #define SYM_RBRC LT(_SYM, KC_RBRC)
 
@@ -77,40 +77,7 @@ combo_t key_combos[] = {
   [QW_SFT] = COMBO(qw_combo, KC_LSFT),
 };
 
-// Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
-// The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
-// produces the key `tap` when tapped (i.e. pressed and released).
 
-bool tmux_flag = false;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  switch (keycode) {
-    case KC_TMUX:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL("a"));
-        set_oneshot_layer(_SYM, ONESHOT_START);
-        tmux_flag = true;
-      } else {
-      }
-      return true;
-    default:
-      return true; // Process all other keycodes normally
-  }
-}
-
-void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_TMUX:
-      if (!record->event.pressed) {
-      }
-      break;
-    default:
-      if(tmux_flag){
-        tmux_flag = false;
-        clear_oneshot_layer_state(ONESHOT_PRESSED);
-      }
-  }
-}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -132,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   KC_Y ,KC_SCLN, KC_BSPC,
      CTL_ESC ,LGUI_A, LALT_R  , LCTL_S , LSHFT_T,   KC_G ,                                        KC_M, RSFT_N , RCTL_E,  RALT_I,RGUI_O ,CTL_QUOT,
      KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                ADJUST , KC_LGUI, KC_LEAD, KC_SPC ,i3_LBRC,    SYM_RBRC,   NAV   ,MOUSE,KC_RGUI, KC_APP
+                                _______, KC_LGUI, KC_LEAD, KC_SPC ,i3_LBRC,    SYM_RBRC,   NAV   ,MOUSE,KC_RGUI, KC_APP
     ),
 /*
  * Nav Layer: Media, navigation
@@ -253,13 +220,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-
-    [_ADJUST] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                    DT_PRNT,DT_UP  , DT_DOWN, _______,  _______, _______,
-      _______, _______, _______, COLEMAK, _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
-      _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
-                                 _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
-    ),
+    //
+    // [_ADJUST] = LAYOUT(
+    //   _______, _______, _______, _______, _______, _______,                                    DT_PRNT,DT_UP  , DT_DOWN, _______,  _______, _______,
+    //   _______, _______, _______, COLEMAK, _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
+    //   _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
+    //                              _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
+    // ),
 // /*
 //  * Layer template
 //  *
@@ -338,6 +305,37 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &enter_key_override,
     NULL // Null terminate the array of overrides!
 };
+
+bool tmux_flag = false;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  switch (keycode) {
+    case KC_TMUX:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL("a"));
+        set_oneshot_layer(_SYM, ONESHOT_START);
+        tmux_flag = true;
+      } else {
+      }
+      return true;
+    default:
+      return true; // Process all other keycodes normally
+  }
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_TMUX:
+      if (!record->event.pressed) {
+      }
+      break;
+    default:
+      if(tmux_flag){
+        tmux_flag = false;
+        clear_oneshot_layer_state(ONESHOT_PRESSED);
+      }
+  }
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
