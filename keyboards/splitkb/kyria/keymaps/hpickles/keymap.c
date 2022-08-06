@@ -23,7 +23,6 @@ enum layers {
     _COLEMAK_DH,
     _NAV,
     _SYM,
-    _i3,
     _FUNCTION,
     _MOUSE,
     // _ADJUST,
@@ -36,7 +35,6 @@ enum layers {
 #define FKEYS    MO(_FUNCTION)
 #define MOUSE    MO(_MOUSE)
 //#define ADJUST   MO(_ADJUST)
-#define i3_LBRC  LT(_i3, KC_LBRC)
 #define SYM_RBRC LT(_SYM, KC_RBRC)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
@@ -91,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   D  |   V  | [ {  |CapsLk|  |F-keys|  ] } |   K  |   H  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |Adjust| LGUI | LAlt/| Space| i3/[{|  |Sym/]}| Nav  | Mouse| RGUI | Menu |
+ *                        |Adjust| LGUI | LAlt/| Space|  [{  |  |Sym/]}| Nav  | Mouse| RGUI | Menu |
  *                        |      |      | Enter|      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -99,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   KC_Y ,KC_SCLN, KC_BSPC,
      CTL_ESC ,LGUI_A, LALT_R  , LCTL_S , LSHFT_T,   KC_G ,                                        KC_M, RSFT_N , RCTL_E,  RALT_I,RGUI_O ,CTL_QUOT,
      KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                _______, KC_LGUI, KC_LEAD, KC_SPC ,i3_LBRC,    SYM_RBRC,   NAV   ,MOUSE,KC_RGUI, KC_APP
+                                _______, KC_LGUI, KC_LEAD, KC_SPC ,KC_LBRC,    SYM_RBRC,   NAV   ,MOUSE,KC_RGUI, KC_APP
     ),
 /*
  * Nav Layer: Media, navigation
@@ -140,27 +138,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
       KC_TILD, KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
       KC_PIPE, KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, _______, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-
-/*
- * Layer template
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |  w   |  f   |      |      |                              |  j   |  l   |      |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |  d   |      |      |      |  |      |      |  k   |  h   |      |      |      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-    [_i3] = LAYOUT(
-      _______,  KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,                                      KC_6  ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  , _______,
-      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -335,18 +312,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_oneshot_layer_state(ONESHOT_PRESSED);
       }
   }
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _i3:
-        register_code(KC_LGUI);
-        break;
-    default: //  for any other layers, or the default layer
-        unregister_code(KC_LGUI);
-        break;
-    }
-  return state;
 }
 
 LEADER_EXTERNS();
