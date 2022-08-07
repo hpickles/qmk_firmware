@@ -432,16 +432,32 @@ void matrix_scan_user(void) {
     leader_end();
 
     // Common phrases
+    SEQ_TWO_KEYS(KC_D, KC_S) {
+      SEND_STRING("Dog's sleeping");
+    }
+
     SEQ_TWO_KEYS(KC_D, KC_W) { // doing well
       SEND_STRING("We are doing well.");
     }
 
-    SEQ_TWO_KEYS(KC_H, KC_G) { // how's going
+    SEQ_TWO_KEYS(KC_H, KC_D) {
       SEND_STRING("How are you doing?");
     }
 
     SEQ_TWO_KEYS(KC_H, KC_W) { // hope well
       SEND_STRING("Hope you are doing well");
+    }
+
+    SEQ_TWO_KEYS(KC_J, KC_C) { // hope well
+      SEND_STRING("Just chillin");
+    }
+
+    SEQ_ONE_KEY(KC_N) {
+      SEND_STRING("Nice");
+    }
+
+    SEQ_TWO_KEYS(KC_S, KC_E) {
+      SEND_STRING("Super excited!!!");
     }
 
     SEQ_TWO_KEYS(KC_S, KC_G) {
@@ -450,6 +466,10 @@ void matrix_scan_user(void) {
 
     SEQ_ONE_KEY(KC_T) {
       SEND_STRING("Thanks");
+    }
+
+    SEQ_TWO_KEYS(KC_T, KC_G) {
+      SEND_STRING("That's great");
     }
 
     SEQ_TWO_KEYS(KC_T, KC_S) {
@@ -478,13 +498,18 @@ void matrix_scan_user(void) {
       SEND_STRING("V4N 6L7");
     }
 
+    // SQL
+    SEQ_TWO_KEYS(KC_M, KC_S) {
+      SEND_STRING("SELECT * FROM ");
+    }
+
     // Work
     SEQ_TWO_KEYS(KC_W, KC_E) { // work email
       SEND_STRING("kjohnson@schoolathome.ca");
     }
 
     SEQ_TWO_KEYS(KC_W, KC_U) { // work username
-      SEND_STRING("kjohnson@schoolathome.ca");
+      SEND_STRING("kjohnson");
     }
   }
 
