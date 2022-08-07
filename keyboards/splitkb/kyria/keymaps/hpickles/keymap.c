@@ -55,24 +55,21 @@ enum layers {
 
 enum combos {
   TM_TMUX,
-  AB_ESC,
-  JK_TAB,
-  QW_SFT,
+  NE_ESC,
+  MN_MENU,
   COMBO_LENGTH,
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM tm_tmux[] = {LSHFT_T, KC_M, COMBO_END};
-const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM ne_combo[] = {RSFT_N, RCTL_E, COMBO_END};
+const uint16_t PROGMEM mn_combo[] = {KC_M, RSFT_N, COMBO_END};
 
 combo_t key_combos[] = {
   [TM_TMUX] = COMBO(tm_tmux, KC_TMUX),
-  [AB_ESC] = COMBO(ab_combo, KC_ESC),
-  [JK_TAB] = COMBO(jk_combo, KC_TAB),
-  [QW_SFT] = COMBO(qw_combo, KC_LSFT),
+  [NE_ESC] = COMBO(ne_combo, KC_ESC),
+  [MN_MENU] = COMBO(mn_combo, KC_APP),
 };
 
 

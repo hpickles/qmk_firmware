@@ -65,15 +65,21 @@ enum planck_keycodes {
 
 enum combos {
   TM_TMUX,
+  NE_ESC,
+  MN_MENU,
   COMBO_LENGTH,
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM tm_tmux[] = {LSHFT_T, KC_M, COMBO_END};
+const uint16_t PROGMEM ne_combo[] = {RSFT_N, RCTL_E, COMBO_END};
+const uint16_t PROGMEM mn_combo[] = {KC_M, RSFT_N, COMBO_END};
 
 combo_t key_combos[] = {
   [TM_TMUX] = COMBO(tm_tmux, KC_TMUX),
+  [NE_ESC] = COMBO(ne_combo, KC_ESC),
+  [MN_MENU] = COMBO(mn_combo, KC_APP),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
