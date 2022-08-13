@@ -512,6 +512,11 @@ void matrix_scan_user(void) {
       SEND_STRING("SELECT * FROM ");
     }
 
+    // PHP
+    SEQ_TWO_KEYS(KC_P, KC_L) {
+      SEND_STRING(":!php -l %");
+    }
+
     // Work
     SEQ_TWO_KEYS(KC_W, KC_E) { // work email
       SEND_STRING("kjohnson@schoolathome.ca");
