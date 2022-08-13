@@ -57,6 +57,9 @@ enum combos {
   TM_TMUX,
   NE_ESC,
   MN_MENU,
+  TN_ENT,
+  PB_BSPC,
+  TA_TAB,
   COMBO_LENGTH,
 };
 
@@ -65,11 +68,17 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM tm_tmux[] = {LSHFT_T, KC_M, COMBO_END};
 const uint16_t PROGMEM ne_combo[] = {RSFT_N, RCTL_E, COMBO_END};
 const uint16_t PROGMEM mn_combo[] = {KC_M, RSFT_N, COMBO_END};
+const uint16_t PROGMEM tn_combo[] = {LSHFT_T, RSFT_N, COMBO_END};
+const uint16_t PROGMEM pb_combo[] = {KC_P, KC_B, COMBO_END};
+const uint16_t PROGMEM ta_combo[] = {LSHFT_T, LGUI_A, COMBO_END};
 
 combo_t key_combos[] = {
   [TM_TMUX] = COMBO(tm_tmux, KC_TMUX),
   [NE_ESC] = COMBO(ne_combo, KC_ESC),
   [MN_MENU] = COMBO(mn_combo, KC_APP),
+  [TN_ENT] = COMBO(tn_combo, KC_ENT),
+  [PB_BSPC] = COMBO(pb_combo, KC_BSPC),
+  [TA_TAB] = COMBO(ta_combo, KC_TAB),
 };
 
 
@@ -258,24 +267,24 @@ const key_override_t tab_key_override = {
   .replacement            = KC_TAB,
   .enabled                = NULL};
 
-const key_override_t enter_key_override = {
-  .trigger_mods           = MOD_BIT(KC_LSFT),
-  .layers                 = ~0,
-  .suppressed_mods        = MOD_BIT(KC_LSFT),
-  .options                = ko_option_no_unregister_on_other_key_down,
-  //.negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_LGUI)),
-  //.custom_action          = momentary_layer,
-  //.context                = (void *)LAYER_FN,
-  .trigger                = KC_SPC,
-  .replacement            = KC_ENT,
-  .enabled                = NULL};
-
+// const key_override_t enter_key_override = {
+//   .trigger_mods           = MOD_BIT(KC_LSFT),
+//   .layers                 = ~0,
+//   .suppressed_mods        = MOD_BIT(KC_LSFT),
+//   .options                = ko_option_no_unregister_on_other_key_down,
+//   //.negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_LGUI)),
+//   //.custom_action          = momentary_layer,
+//   //.context                = (void *)LAYER_FN,
+//   .trigger                = KC_SPC,
+//   .replacement            = KC_ENT,
+//   .enabled                = NULL};
+//
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &backspace_key_override,
     &tab_key_override,
-    &enter_key_override,
+    // &enter_key_override,
     NULL // Null terminate the array of overrides!
 };
 
